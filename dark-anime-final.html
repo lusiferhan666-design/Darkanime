@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dark anime | فیلم، سریال، انیمه و انیمیشن</title>
+<style>
+/* ---------- تم هر بخش (الهام از شخصیت‌های وان‌پیس) ---------- */
+body[data-theme="home"]{--bg:#141428;--surface:#1f1f3d;--text:#f2f0ff;--muted:#a9a7cc;--accent:#ffb703;--accent-ink:#201400;--accent2:#ff7a1a;--line:#34345c;--pl1:38%;--pl2:16%;--ps:50%}
+body[data-theme="movies"]{--bg:#100606;--surface:#1d0c0d;--text:#f4ede8;--muted:#b69a96;--accent:#d3202e;--accent-ink:#ffffff;--accent2:#f4ede8;--line:#3a1517;--pl1:34%;--pl2:12%;--ps:62%}
+body[data-theme="series"]{--bg:#0a0f1f;--surface:#131b36;--text:#f3efe0;--muted:#9fa8c7;--accent:#ffd23f;--accent-ink:#1a1400;--accent2:#ff7a1a;--line:#25305a;--pl1:34%;--pl2:14%;--ps:55%}
+body[data-theme="anime"]{--bg:#090811;--surface:#141220;--text:#f4f0ff;--muted:#aaa3c0;--accent:#b46cff;--accent-ink:#fff;--accent2:#ff3ea5;--line:#302641;--pl1:48%;--pl2:30%;--ps:55%}
+body[data-theme="mature"]{--bg:#07100b;--surface:#0f1d15;--text:#e9f5ec;--muted:#8db39a;--accent:#52d273;--accent-ink:#04200f;--accent2:#e8eef0;--line:#1f3a2a;--pl1:30%;--pl2:11%;--ps:55%}
+body[data-theme="animation"]{--bg:#240a21;--surface:#3a1235;--text:#fff0f7;--muted:#d9a8c8;--accent:#ff4fa3;--accent-ink:#2a0620;--accent2:#f5c76a;--line:#5c2054;--pl1:44%;--pl2:20%;--ps:68%}
+/* پنل کاربری: نامی (نارنجی، دریا، نقشه) */
+body[data-theme="panel"]{--bg:#0b1e33;--surface:#12304f;--text:#fff4e6;--muted:#9fbad6;--accent:#ff8a1f;--accent-ink:#2a1300;--accent2:#5bbf5a;--line:#1f4a73;--pl1:40%;--pl2:18%;--ps:60%}
+body[data-theme="anime"]{color-scheme:dark}
+body:not([data-theme="anime"]){color-scheme:dark}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:"Vazirmatn","Vazir","IRANSans",Tahoma,"Segoe UI",system-ui,sans-serif;line-height:1.8;transition:background .4s,color .4s;min-height:100vh;padding-bottom:90px}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+
+/* ---------- هدر ---------- */
+header{position:sticky;top:0;z-index:20;background:#0c0c1c;color:#f2f0ff;border-bottom:3px solid var(--accent);transition:border-color .4s}
+.top{display:flex;align-items:center;gap:14px;padding-top:8px}
+.logo{font-size:1.5rem;font-weight:800;background:none;border:0}
+.nav{display:flex;gap:8px;overflow-x:auto;padding:6px 0 10px;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav button{white-space:nowrap;background:transparent;border:1.5px solid var(--c);color:var(--c);border-radius:999px;padding:1px 16px;font-weight:700;font-size:.95rem}
+.nav button[aria-current="page"]{background:var(--c);color:var(--ci)}
+
+/* ---------- منوی پایین ---------- */
+.tabbar{position:fixed;bottom:0;left:0;right:0;z-index:30;background:#0c0c1c;border-top:2px solid var(--accent);display:grid;grid-template-columns:repeat(3,1fr);padding-bottom:env(safe-area-inset-bottom)}
+.tabbar button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:0;padding:8px 0 6px;color:#9a98c0;font-size:.8rem;line-height:1.5}
+.tabbar button svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tabbar button[aria-current="page"]{color:var(--accent)}
+.tabbar button[aria-current="page"] svg{fill:currentColor;fill-opacity:.2}
+
+/* ---------- هیرو ---------- */
+.hero{position:relative;overflow:hidden;padding:36px 0 22px}
+.hero.has-emb{padding-left:calc(clamp(84px,24vw,150px) + 14px)}
+.hero h1{position:relative;z-index:2;font-size:clamp(2rem,8vw,3.2rem);line-height:1.3;display:inline-block}
+.hero p{position:relative;z-index:2;color:var(--muted);max-width:52ch;margin:6px 0 14px}
+.hero .btn{position:relative;z-index:2}
+.btn{display:inline-block;border-radius:10px;padding:5px 16px;border:1.5px solid var(--accent);background:transparent;color:var(--text);text-decoration:none;font-size:.92rem}
+.btn.primary{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.emblem{position:absolute;left:0;top:50%;transform:translateY(-50%);width:clamp(84px,24vw,150px);z-index:1}
+.emblem svg,.emblem img,.mini svg,.mini img{width:100%;height:auto;display:block;border-radius:50%}
+[data-theme="anime"] .emblem{animation:rubber 1s both}
+
+/* دکور اختصاصی هر هیرو */
+.deco{position:absolute;inset:0;pointer-events:none;z-index:1}
+[data-theme="movies"] .deco i{position:absolute;top:-20%;left:38%;width:6px;height:150%;background:var(--accent);transform:rotate(18deg);opacity:.5;border-radius:3px}
+[data-theme="movies"] .deco i:nth-child(2){left:calc(38% + 22px)}
+[data-theme="movies"] .deco i:nth-child(3){left:calc(38% + 44px)}
+[data-theme="series"] .deco i{position:absolute;bottom:-30px;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,rgba(243,239,224,.28),transparent 70%);filter:blur(6px);animation:smoke 7s linear infinite}
+[data-theme="series"] .deco i:nth-child(1){left:30%}
+[data-theme="series"] .deco i:nth-child(2){left:42%;animation-delay:-2s}
+[data-theme="series"] .deco i:nth-child(3){left:54%;animation-delay:-4s}
+[data-theme="series"] .deco i:nth-child(4){left:36%;animation-delay:-5.5s}
+@keyframes smoke{0%{transform:translateY(0) scale(.6);opacity:0}20%{opacity:1}100%{transform:translateY(-230px) translateX(30px) scale(1.8);opacity:0}}
+[data-theme="anime"] .deco i{position:absolute;top:50%;left:6%;width:300px;height:300px;margin-top:-150px;border-radius:50%;background:radial-gradient(circle,rgba(255,196,0,.5),rgba(255,196,0,0) 68%)}
+[data-theme="anime"] .deco i:nth-child(2){width:380px;height:380px;margin-top:-190px;left:calc(6% - 40px);background:none;border:3px solid rgba(255,180,0,.35);animation:drum 1.6s ease-out infinite}
+[data-theme="anime"] .deco i:nth-child(3){display:none}
+@keyframes drum{0%{transform:scale(.7);opacity:.9}100%{transform:scale(1.25);opacity:0}}
+[data-theme="anime"] .hero h1{animation:rubber 1s both}
+@keyframes rubber{0%{transform:scale(1,1)}25%{transform:scale(1.25,.75)}45%{transform:scale(.8,1.2)}65%{transform:scale(1.12,.9)}85%{transform:scale(.96,1.04)}100%{transform:scale(1,1)}}
+[data-theme="mature"] .deco i{position:absolute;top:-10%;left:34%;width:3px;height:140%;background:linear-gradient(transparent,var(--accent),transparent);transform:rotate(28deg);opacity:.8}
+[data-theme="mature"] .deco i:nth-child(2){left:calc(34% + 26px);opacity:.5}
+[data-theme="mature"] .deco i:nth-child(3){left:calc(34% + 52px);opacity:.3}
+[data-theme="animation"] .deco i,[data-theme="panel"] .deco i{position:absolute;bottom:-20px;opacity:0;animation:floaty 6s ease-in infinite}
+[data-theme="animation"] .deco i{font-style:normal;color:var(--accent)}
+[data-theme="animation"] .deco i::before{content:"♥"}
+[data-theme="animation"] .deco i:nth-child(1){left:30%;font-size:20px}
+[data-theme="animation"] .deco i:nth-child(2){left:42%;font-size:30px;animation-delay:-2s}
+[data-theme="animation"] .deco i:nth-child(3){left:54%;font-size:16px;animation-delay:-4s}
+[data-theme="animation"] .deco i:nth-child(4){left:36%;font-size:24px;animation-delay:-1s}
+[data-theme="panel"] .deco i{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffb35c,#ff8a1f 60%,#d96a00)}
+[data-theme="panel"] .deco i:nth-child(1){left:28%}
+[data-theme="panel"] .deco i:nth-child(2){left:40%;animation-delay:-1.5s;width:26px;height:26px}
+[data-theme="panel"] .deco i:nth-child(3){left:52%;animation-delay:-3s}
+[data-theme="panel"] .deco i:nth-child(4){left:34%;animation-delay:-4.5s;width:16px;height:16px}
+[data-theme="panel"] .deco i:nth-child(5){left:46%;animation-delay:-5.5s}
+@keyframes floaty{0%{transform:translateY(0);opacity:0}20%{opacity:.85}100%{transform:translateY(-220px) rotate(20deg);opacity:0}}
+
+/* ---------- ابزار ---------- */
+.toolbar{display:grid;gap:10px;padding:10px 0}
+.search{width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:8px 14px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:1px 14px;font-size:.9rem}
+.chips button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.count{color:var(--muted);font-size:.9rem}
+h2.sec{font-size:1.5rem;margin:28px 0 4px}
+
+/* ---------- ردیف‌های افقی صفحه‌ی اصلی ---------- */
+.rowwrap{margin-top:22px}
+.row-head{display:flex;align-items:center;justify-content:space-between;gap:10px;border-right:4px solid var(--c);padding-right:10px;margin-bottom:10px}
+.rh-l{display:flex;align-items:center;gap:10px}
+.rh-l h2{font-size:1.25rem}
+.mini{width:36px;flex:none}
+.rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:8px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rail .cell{flex:0 0 132px;scroll-snap-align:start}
+
+/* ---------- گرید و پوستر ---------- */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:8px 0 28px}
+@media(min-width:560px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:860px){.grid{grid-template-columns:repeat(5,1fr);gap:18px}}
+.cell{position:relative}
+.card{background:none;border:0;text-align:right;display:block;width:100%}
+.card .t{font-weight:700;margin-top:8px;line-height:1.5;font-size:.95rem}
+.card .s{color:var(--muted);font-size:.82rem}
+.poster{position:relative;aspect-ratio:2/3;border-radius:14px;overflow:hidden;color:#fff;padding:12px;display:flex;flex-direction:column;justify-content:space-between;
+  background:linear-gradient(160deg,hsl(var(--h) var(--ps) var(--pl1)),hsl(calc(var(--h) + 22) var(--ps) var(--pl2)));transition:transform .2s,box-shadow .2s}
+.poster::after{content:"";position:absolute;inset:auto -30% -25% auto;width:90%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.12)}
+.poster.has-img::after,.poster.has-img .big{display:none}
+.poster .kind{font-size:.75rem;background:rgba(0,0,0,.4);align-self:flex-start;border-radius:6px;padding:0 8px;z-index:1}
+.poster .big{font-size:clamp(1.05rem,4.4vw,1.55rem);font-weight:800;line-height:1.3;z-index:1;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.poster .yr{font-size:.8rem;opacity:.9;z-index:1}
+
+[data-theme="movies"] .card:hover .poster{transform:translateY(-5px);box-shadow:0 0 0 2px var(--accent),0 12px 30px rgba(211,32,46,.45)}
+[data-theme="series"] .card:hover .poster{transform:translateY(-5px) rotate(-2.5deg);box-shadow:0 0 26px 4px rgba(255,122,26,.65)}
+[data-theme="anime"] .card:hover .poster{animation:rubberCard .6s}
+@keyframes rubberCard{0%{transform:scale(1)}30%{transform:scale(1.1,.92)}55%{transform:scale(.95,1.07)}80%{transform:scale(1.03,.98)}100%{transform:scale(1)}}
+[data-theme="mature"] .poster::before{content:"";position:absolute;top:0;bottom:0;width:30%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);transition:left .5s;z-index:2}
+[data-theme="mature"] .card:hover .poster::before{left:140%}
+[data-theme="mature"] .card:hover .poster{box-shadow:0 0 0 2px var(--accent)}
+[data-theme="animation"] .card:hover .poster{transform:translateY(-4px);box-shadow:0 0 0 2px var(--accent),0 10px 28px rgba(255,79,163,.5)}
+[data-theme="animation"] .cell::after{content:"♥";position:absolute;top:30%;right:50%;color:var(--accent);font-size:2rem;opacity:0;pointer-events:none;z-index:3}
+[data-theme="animation"] .cell:hover::after{animation:pop .8s}
+[data-theme="panel"] .card:hover .poster{transform:translateY(-4px);box-shadow:0 0 0 2px var(--accent),0 10px 26px rgba(255,138,31,.45)}
+@keyframes pop{0%{opacity:0;transform:translateY(10px) scale(.4)}30%{opacity:1;transform:translateY(-10px) scale(1.2)}100%{opacity:0;transform:translateY(-60px) scale(1)}}
+
+/* ---------- پنل کاربری ---------- */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:6px 0 16px}
+.stat{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:10px 4px;text-align:center;font-size:.85rem}
+.stat b{display:block;font-size:1.6rem;color:var(--accent);line-height:1.3}
+.menu{display:grid;gap:10px;padding-bottom:20px}
+.menu button{display:flex;justify-content:space-between;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:12px 16px;text-align:right;width:100%;font-weight:700}
+.menu button:hover{border-color:var(--accent)}
+.menu .cnt{background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:0 10px;font-size:.85rem}
+.menu small{color:var(--muted);font-weight:400;display:block;font-size:.8rem}
+.form{display:grid;gap:10px;max-width:480px;padding-bottom:20px}
+.form label{font-size:.9rem;color:var(--muted)}
+.form input,.form textarea{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;width:100%}
+.form textarea{min-height:110px;resize:vertical}
+.back{background:none;border:0;color:var(--accent);padding:6px 0;font-weight:700;font-size:1rem}
+.sub-title{font-size:1.3rem;margin:4px 0 10px}
+.links{display:grid;gap:10px;max-width:480px;margin-bottom:18px}
+.links a{display:block;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;text-decoration:none}
+.links a span{color:var(--muted);direction:ltr;display:block;text-align:right;font-size:.85rem}
+.ok{color:var(--accent2)}
+
+/* ---------- دیالوگ‌ها ---------- */
+dialog{border:0;border-radius:18px;background:var(--surface);color:var(--text);width:min(680px,calc(100% - 24px));max-height:90vh;padding:0;margin:auto;overflow:auto}
+dialog::backdrop{background:rgba(5,4,15,.75)}
+.d-body{display:grid;gap:18px;padding:20px}
+@media(min-width:600px){.d-body.has-poster{grid-template-columns:180px 1fr}}
+.d-body .poster{width:min(180px,55%);margin:0 auto}
+.d-body h2{font-size:1.5rem;line-height:1.4}
+.en{color:var(--muted);direction:ltr;text-align:right;margin-bottom:8px}
+.facts{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px}
+.facts span{background:var(--line);border-radius:8px;padding:0 10px;font-size:.88rem}
+.close{position:absolute;top:10px;left:10px;background:var(--line);border:0;border-radius:50%;width:34px;height:34px;font-size:1.1rem;z-index:3}
+.boxes{display:grid;gap:12px;margin-top:12px}
+@media(min-width:600px){.boxes.two{grid-template-columns:1fr 1fr}}
+.box{border:1.5px solid var(--accent);border-radius:12px;padding:10px 14px}
+.box h3{font-size:1.05rem;margin-bottom:4px;color:var(--accent)}
+[data-theme="anime"] .box h3{color:#b07a00}
+.box.none{border-style:dashed;border-color:var(--line)}
+.box.none h3{color:var(--muted)}
+.box ul{padding-right:18px;font-size:.92rem}
+.box p{font-size:.92rem}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.note{color:var(--muted);font-size:.8rem;margin-top:10px}
+#gate .d-body{text-align:center;justify-items:center;padding:32px 20px}
+#gate h2{font-size:1.6rem}
+#gate .btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padding:22px 0 20px;margin-top:20px}
+
+/* ---------- افکت ورود به هر بخش ---------- */
+.fx{position:fixed;inset:0;z-index:60;pointer-events:none;overflow:hidden}
+.fx-haki b{position:absolute;top:50%;left:50%;width:40vmax;height:40vmax;margin:-20vmax 0 0 -20vmax;border-radius:50%;border:6px solid #d3202e;box-shadow:0 0 60px 10px rgba(211,32,46,.6),inset 0 0 60px 10px rgba(211,32,46,.5);animation:haki .9s ease-out forwards;opacity:0}
+.fx-haki b:nth-child(2){animation-delay:.15s}
+@keyframes haki{0%{transform:scale(.1);opacity:.95}100%{transform:scale(3);opacity:0}}
+.fx-flame i{position:absolute;left:0;right:0;bottom:-100%;height:100%;background:linear-gradient(to top,#ff4d00,#ff7a1a 40%,rgba(255,210,63,.6) 70%,transparent);animation:flame .8s ease-out forwards}
+@keyframes flame{0%{transform:translateY(0);opacity:.95}100%{transform:translateY(-130%);opacity:0}}
+.fx-sun i{position:absolute;top:50%;left:50%;width:30vmax;height:30vmax;margin:-15vmax 0 0 -15vmax;border-radius:50%;background:radial-gradient(circle,#fff,#ffd54a 55%,rgba(255,180,0,0) 72%);animation:sun .9s ease-out forwards}
+@keyframes sun{0%{transform:scale(.2);opacity:1}100%{transform:scale(4);opacity:0}}
+.fx-slash i{position:absolute;left:-25%;width:150%;height:3px;background:linear-gradient(90deg,transparent,#fff,transparent);box-shadow:0 0 18px 4px #52d273;transform:rotate(-24deg) scaleX(0);opacity:0;animation:slash .5s ease-out forwards}
+.fx-slash i:nth-child(1){top:30%}
+.fx-slash i:nth-child(2){top:50%;animation-delay:.12s}
+.fx-slash i:nth-child(3){top:70%;animation-delay:.24s}
+@keyframes slash{0%{transform:rotate(-24deg) scaleX(0);opacity:1}60%{opacity:1}100%{transform:rotate(-24deg) scaleX(1);opacity:0}}
+.fx-heart i{position:absolute;bottom:-40px;font-style:normal;color:#ff4fa3;animation:heartUp 1.1s ease-out forwards}
+.fx-heart i::before{content:"♥"}
+@keyframes heartUp{0%{transform:translateY(0) scale(.5);opacity:0}25%{opacity:1}100%{transform:translateY(-95vh) scale(1.4);opacity:0}}
+.fx-thunder i{position:absolute;inset:0;background:radial-gradient(circle at 50% 20%,#fff3c4,rgba(255,200,90,.35) 55%,transparent);opacity:0;animation:thunder .9s ease-out}
+@keyframes thunder{0%{opacity:0}20%{opacity:.75}100%{opacity:0}}
+
+@media(prefers-reduced-motion:reduce){
+  .fx{display:none}
+  *{animation:none!important;transition:none!important}
+}
+
+/* ===== DARK ANIME MODERN THEME ===== */
+:root{
+  --da-bg:#07070d;
+  --da-surface:#10101a;
+  --da-surface2:#151522;
+  --da-text:#f5f3ff;
+  --da-muted:#9693aa;
+  --da-purple:#9b5cff;
+  --da-pink:#ff3ea5;
+  --da-cyan:#37d9ff;
+}
+body{
+  background:
+    radial-gradient(circle at 80% -10%,rgba(155,92,255,.16),transparent 32%),
+    radial-gradient(circle at 10% 20%,rgba(255,62,165,.08),transparent 28%),
+    var(--da-bg);
+  color:var(--da-text);
+}
+header{
+  background:rgba(7,7,13,.82);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(155,92,255,.45);
+  box-shadow:0 8px 30px rgba(0,0,0,.25);
+}
+.top{padding-top:10px}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:1.18rem;
+  letter-spacing:.2px;
+  color:#fff;
+  text-shadow:0 0 18px rgba(155,92,255,.65);
+}
+.brand-mark{
+  width:34px;height:34px;
+  display:grid;place-items:center;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--da-purple),var(--da-pink));
+  color:#fff;font-weight:900;
+  box-shadow:0 0 24px rgba(155,92,255,.38);
+}
+.nav{padding:8px 0 11px}
+.nav button{
+  --c:#a6a2ba;
+  --ci:#08080d;
+  border-color:rgba(255,255,255,.12);
+  background:rgba(255,255,255,.035);
+  transition:.2s ease;
+}
+.nav button:hover{border-color:var(--da-purple);transform:translateY(-1px)}
+.nav button[aria-current="page"]{
+  background:linear-gradient(135deg,var(--da-purple),var(--da-pink));
+  color:#fff;
+  border-color:transparent;
+  box-shadow:0 0 20px rgba(155,92,255,.25);
+}
+.tabbar{
+  background:rgba(7,7,13,.88);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-top:1px solid rgba(155,92,255,.35);
+}
+.tabbar button[aria-current="page"]{color:#c99cff}
+
+/* هوم قوی‌تر و انیمه‌ای‌تر */
+.home-hero{
+  min-height:300px;
+  padding:54px 0 34px;
+  position:relative;
+}
+.home-hero::before{
+  content:"";
+  position:absolute;
+  width:300px;height:300px;
+  left:-90px;top:-40px;
+  background:radial-gradient(circle,rgba(155,92,255,.25),transparent 68%);
+  filter:blur(8px);
+}
+.home-hero::after{
+  content:"";
+  position:absolute;inset:0;
+  background:
+    linear-gradient(135deg,transparent 0 65%,rgba(255,62,165,.055) 65% 66%,transparent 66%),
+    repeating-linear-gradient(135deg,transparent 0 34px,rgba(255,255,255,.018) 35px 36px);
+  pointer-events:none;
+}
+.home-hero h1,.home-hero p,.hero-tags{position:relative;z-index:2}
+.brand-glow{
+  background:linear-gradient(90deg,#fff,var(--da-purple),var(--da-pink));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  text-shadow:none;
+  font-weight:950;
+  letter-spacing:-1px;
+}
+.hero-kanji{
+  position:absolute;
+  z-index:1;
+  left:5%;
+  top:8px;
+  font-size:clamp(8rem,35vw,17rem);
+  font-weight:900;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(155,92,255,.16);
+  line-height:1;
+  transform:rotate(-8deg);
+  user-select:none;
+}
+.hero-tags{
+  display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;
+}
+.hero-tags span{
+  padding:4px 11px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;
+  background:rgba(255,255,255,.045);
+  color:#c9c4d9;
+  font-size:.72rem;
+  letter-spacing:1.5px;
+}
+
+/* کارت‌ها */
+.card{text-align:right}
+.poster{
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 10px 28px rgba(0,0,0,.24);
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+.card:hover .poster{
+  transform:translateY(-7px) scale(1.025);
+  border-color:rgba(155,92,255,.65);
+  box-shadow:0 16px 42px rgba(0,0,0,.48),0 0 26px rgba(155,92,255,.16);
+}
+.poster .kind{
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.48);
+  backdrop-filter:blur(8px);
+}
+.card .t{font-size:.96rem}
+.card .s{color:#858197}
+
+/* جستجو و چیپ‌ها */
+.search{
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;
+  padding:11px 15px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.01);
+}
+.search:focus{
+  border-color:var(--da-purple);
+  box-shadow:0 0 0 3px rgba(155,92,255,.12);
+}
+.chips button{
+  background:rgba(255,255,255,.035);
+  border-color:rgba(255,255,255,.1);
+  border-radius:999px;
+  transition:.2s ease;
+}
+.chips button:hover{border-color:var(--da-purple)}
+.chips button[aria-pressed="true"]{
+  background:linear-gradient(135deg,var(--da-purple),var(--da-pink));
+  color:#fff;border-color:transparent;
+}
+
+/* تیتر بخش‌ها */
+.row-head{
+  border-right:3px solid #9b5cff;
+  background:linear-gradient(90deg,rgba(155,92,255,.06),transparent);
+  border-radius:0 12px 12px 0;
+  padding:7px 11px;
+}
+.row-head .btn,.hero .btn{
+  border-radius:999px;
+}
+
+/* دیالوگ مدرن */
+dialog{
+  background:linear-gradient(145deg,#12121d,#0c0c13);
+  border:1px solid rgba(155,92,255,.28);
+  box-shadow:0 30px 100px rgba(0,0,0,.7);
+}
+dialog::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(5px)}
+.box{
+  border-color:rgba(155,92,255,.45);
+  background:rgba(155,92,255,.035);
+}
+.box h3{color:#c69cff}
+.close{background:#1b1a27}
+
+/* نوار اسکرول */
+*{scrollbar-width:thin;scrollbar-color:#3c3154 #09090e}
+*::-webkit-scrollbar{width:7px;height:7px}
+*::-webkit-scrollbar-track{background:#09090e}
+*::-webkit-scrollbar-thumb{background:#3c3154;border-radius:99px}
+*::-webkit-scrollbar-thumb:hover{background:#634b87}
+
+/* موبایل */
+@media(max-width:559px){
+  .wrap{padding:0 13px}
+  .home-hero{min-height:270px;padding-top:42px}
+  .home-hero h1{font-size:2.45rem}
+  .hero-kanji{font-size:10rem;left:1%}
+}
+
+</style>
+</head>
+<body data-theme="home">
+
+<header>
+  <div class="wrap">
+    <div class="top"><button class="logo" data-go="home" aria-label="صفحه‌ی اصلی"><span class="brand-mark">D</span> Dark anime</button></div>
+    <nav class="nav" id="nav" aria-label="بخش‌های سایت"></nav>
+  </div>
+</header>
+
+<main class="wrap" id="view"></main>
+
+<footer>
+  <div class="wrap">این سایت فقط معرفی و دسته‌بندی می‌کند و فایلی پخش یا ارائه نمی‌کند. دکمه‌ی «کجا ببینم؟» شما را به جستجوی سرویس‌های قانونی می‌برد. تعداد فصل‌ها و فیلم‌ها ممکن است با گذشت زمان تغییر کند.</div>
+</footer>
+
+<nav class="tabbar" id="tabbar" aria-label="منوی اصلی"></nav>
+
+<dialog id="dlg" aria-label="جزئیات">
+  <button class="close" id="dClose" aria-label="بستن">✕</button>
+  <div id="dBody"></div>
+</dialog>
+
+<dialog id="gate" aria-labelledby="gTitle">
+  <div class="d-body">
+    <h2 id="gTitle">این بخش مخصوص بزرگسالان است</h2>
+    <p>آثار این بخش شامل خشونت و مضامین تاریک است و برای ۱۸ سال به بالا مناسب است. سن شما حداقل ۱۸ سال است؟</p>
+    <div class="btns">
+      <button class="btn primary" id="gYes">بله، ۱۸ سال یا بیشتر دارم</button>
+      <button class="btn" id="gNo">نه، برگرد</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+const fa = n => String(n).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const $ = id => document.getElementById(id);
+const REG = {};
+
+/* ---------- تنظیمات قابل ویرایش ---------- */
+// راه‌های تماس خودت را اینجا بنویس
+const CONTACT = {email:"you@example.com", telegram:"your_id", instagram:"your_id"};
+// اگر عکس کارکتر یا پوستر داری که حق استفاده‌اش را داری، آدرسش را اینجا بگذار
+const CHAR_IMG = {movies:"", series:"", anime:"", mature:"", animation:"", panel:""};   // مثال: anime:"images/luffy.png"
+const IMAGES = {};   // مثال: IMAGES["Inception"] = "images/inception.jpg"
+
+/* ---------- بخش‌ها ---------- */
+const SECTIONS = {
+  movies:   {label:"سینمایی",       c:"#ff4d5a", ci:"#fff",    hues:[355,0,10,345,18],       kind:"فیلم"},
+  series:   {label:"سریال",         c:"#ffd23f", ci:"#1a1400", hues:[222,45,28,232,52],      kind:"سریال"},
+  anime:    {label:"انیمه",         c:"#ffc400", ci:"#2a1c00", hues:[45,205,350,38,212],     kind:"انیمه"},
+  mature:   {label:"خاک‌برسری‌ها",  c:"#52d273", ci:"#04200f", hues:[140,150,128,160,105],   kind:"+۱۸"},
+  animation:{label:"انیمیشن",       c:"#ff4fa3", ci:"#2a0620", hues:[320,332,300,342,282],   kind:"انیمیشن"}
+};
+const HERO = {
+  movies:   ["فیلم‌های سینمایی","همه‌ی فیلم‌ها یک‌جا، و پایین‌تر کالکشن‌ها و مجموعه‌های کامل."],
+  series:   ["سریال‌ها","فقط سریال‌های تلویزیونی و پلتفرمی، با تعداد فصل و قسمت."],
+  anime:    ["انیمه‌ها","هم سریال، هم فیلم سینمایی. در صفحه‌ی هر اثر، این دو جدا از هم آمده‌اند."],
+  mature:   ["خاک‌برسری‌ها","انیمه‌های تاریک و خشن که فقط برای ۱۸ سال به بالا مناسب‌اند."],
+  animation:["انیمیشن‌ها","انیمیشن‌های سریالی و سینمایی، با فهرست جدای هرکدام."]
+};
+
+/* ---------- نشان کارکترها (طراحی ساده و اختصاصی، نه تصویر رسمی) ---------- */
+const EMB = {
+  movies:`<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="#1d0c0d" stroke="#d3202e" stroke-width="3"/><ellipse cx="50" cy="58" rx="22" ry="24" fill="#e8c4a8"/><path d="M20 50 Q16 20 40 16 Q50 6 62 16 Q86 20 80 50 Q70 32 50 34 Q30 32 20 50Z" fill="#d3202e"/><g stroke="#8a1119" stroke-width="2.6" stroke-linecap="round"><path d="M35 40 L41 66"/><path d="M40 40 L46 66"/><path d="M45 40 L51 66"/></g><circle cx="43" cy="56" r="2.6" fill="#241012"/><circle cx="60" cy="56" r="2.6" fill="#241012"/><path d="M44 72 Q52 76 58 72" stroke="#241012" stroke-width="2" fill="none"/><path d="M8 94 Q30 74 50 80 Q70 74 92 94Z" fill="#f4ede8"/><path d="M50 80 L44 94 M50 80 L56 94" stroke="#241012" stroke-width="2"/></svg>`,
+  series:`<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="#131b36" stroke="#ffd23f" stroke-width="3"/><ellipse cx="50" cy="56" rx="20" ry="24" fill="#f0cfa8"/><path d="M28 54 Q24 22 50 20 Q76 22 72 54 Q64 40 54 42 Q50 52 44 48 Q36 40 28 54Z" fill="#ffd23f"/><path d="M52 40 Q72 40 70 66 Q62 52 52 56Z" fill="#ffd23f"/><circle cx="41" cy="57" r="2.6" fill="#1a1a2e"/><path d="M46 38 q3 -4 7 -1" stroke="#1a1a2e" stroke-width="2" fill="none"/><path d="M48 72 L76 66" stroke="#f3efe0" stroke-width="3" stroke-linecap="round"/><circle cx="77" cy="66" r="2.6" fill="#ff7a1a"/><path d="M78 61 Q86 54 79 48 Q72 42 82 35" stroke="rgba(243,239,224,.7)" stroke-width="2" fill="none"/><path d="M14 94 Q30 80 50 82 Q70 80 86 94Z" fill="#0a0f1f"/><path d="M42 82 L50 92 L58 82Z" fill="#f3efe0"/><path d="M50 84 L47 94 L53 94Z" fill="#3a4a8a"/></svg>`,
+  anime:`<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="#fff7d6" stroke="#ffb400" stroke-width="3"/><ellipse cx="50" cy="76" rx="22" ry="20" fill="#f0cfa8"/><circle cx="39" cy="74" r="3" fill="#1c2340"/><circle cx="61" cy="74" r="3" fill="#1c2340"/><path d="M34 81 Q50 98 66 81Z" fill="#fff" stroke="#1c2340" stroke-width="2.4" stroke-linejoin="round"/><path d="M24 60 Q24 20 50 20 Q76 20 76 60Z" fill="#f2c14e"/><ellipse cx="50" cy="61" rx="42" ry="10" fill="#e0a82e"/><rect x="24" y="46" width="52" height="9" fill="#d3202e"/><g stroke="#c98f1a" stroke-width="1.4" fill="none"><path d="M30 34 Q50 40 70 34"/><path d="M27 42 Q50 48 73 42"/></g></svg>`,
+  mature:`<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="#0f1d15" stroke="#52d273" stroke-width="3"/><g stroke="#e8eef0" stroke-width="4" stroke-linecap="round"><path d="M16 16 L84 84"/><path d="M84 16 L16 84"/></g><g stroke="#f5c76a" stroke-width="6" stroke-linecap="round"><path d="M14 14 L22 22"/><path d="M86 14 L78 22"/></g><ellipse cx="50" cy="58" rx="21" ry="24" fill="#e3b88c"/><path d="M26 48 L30 22 L40 34 L48 16 L56 34 L68 20 L74 48 Q64 36 50 36 Q36 36 26 48Z" fill="#52d273"/><circle cx="29" cy="60" r="2.6" fill="#f5c76a"/><circle cx="29" cy="66" r="2.6" fill="#f5c76a"/><circle cx="29" cy="72" r="2.6" fill="#f5c76a"/><path d="M38 46 L41 66" stroke="#8b2f2f" stroke-width="2.4" stroke-linecap="round"/><path d="M38 56 h8" stroke="#1a1a1a" stroke-width="2.4"/><circle cx="60" cy="56" r="2.6" fill="#1a1a1a"/><path d="M45 72 h12" stroke="#1a1a1a" stroke-width="2"/></svg>`,
+  animation:`<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="#3a1235" stroke="#ff4fa3" stroke-width="3"/><path d="M20 40 Q20 12 50 12 Q80 12 80 40 L82 94 L18 94Z" fill="#120410"/><ellipse cx="50" cy="52" rx="18" ry="22" fill="#f6d5c0"/><path d="M34 22 L38 10 L44 18 L50 7 L56 18 L62 10 L66 22Z" fill="#f5c76a"/><g stroke="#120410" stroke-width="2.2" stroke-linecap="round"><path d="M38 50 q4 -4 8 0"/><path d="M54 50 q4 -4 8 0"/></g><path d="M44 64 Q50 69 56 64" stroke="#ff4fa3" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M50 94 C26 78 28 62 41 62 C46 62 50 66 50 68 C50 66 54 62 59 62 C72 62 74 78 50 94Z" fill="#ff4fa3"/></svg>`,
+  panel:`<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="#12304f" stroke="#ff8a1f" stroke-width="3"/><circle cx="50" cy="56" r="28" fill="#ff8a1f"/><path d="M50 30 Q62 12 78 20 Q66 34 50 30Z" fill="#5bbf5a"/><circle cx="50" cy="56" r="14" fill="#fff4e6" stroke="#12304f" stroke-width="2.4"/><path d="M50 45 L55 56 L50 67 L45 56Z" fill="#d3202e"/><circle cx="50" cy="56" r="2" fill="#12304f"/></svg>`
+};
+const emblem = k => CHAR_IMG[k] ? `<img src="${CHAR_IMG[k]}" alt="">` : EMB[k];
+
+/* ---------- داده‌ها: برای افزودن اثر جدید یک خط به همین لیست‌ها اضافه کنید ---------- */
+const tv = (seasons, episodes, years) => ({seasons, episodes, years});
+const mv = (list, n) => ({list, n});
+
+const SINGLE_MOVIES = [
+  ["تلقین","Inception",2010,["علمی‌تخیلی","اکشن"],"دزدی که وارد رویاهای دیگران می‌شود، این بار باید فکری را در ذهن کسی بکارد."],
+  ["انگل","Parasite",2019,["درام","هیجانی"],"خانواده‌ای فقیر کم‌کم در زندگی یک خانواده‌ی ثروتمند نفوذ می‌کند."],
+  ["میان‌ستاره‌ای","Interstellar",2014,["علمی‌تخیلی","درام"],"گروهی فضانورد برای یافتن خانه‌ای تازه برای بشر از یک کرم‌چاله می‌گذرند."],
+  ["پدرخوانده","The Godfather",1972,["جنایی","درام"],"قدرت و وفاداری در یک خانواده‌ی مافیایی و جانشینی که نمی‌خواست جانشین شود."]
+];
+const COLLECTIONS = [
+  {id:"ff", fa:"سریع و خشن", en:"Fast & Furious", genres:["اکشن","ماشین"], sum:"مسابقه‌های خیابانی، خانواده‌ی رانندگان و ماموریت‌هایی که هر بار بزرگ‌تر از قبل می‌شود.",
+   films:[["سریع و خشن ۱","The Fast and the Furious",2001],["۲ سریع ۲ خشن","2 Fast 2 Furious",2003],["سریع و خشن: توکیو دریفت","The Fast and the Furious: Tokyo Drift",2006],["سریع و خشن ۴","Fast & Furious",2009],["سریع و خشن ۵","Fast Five",2011],["سریع و خشن ۶","Fast & Furious 6",2013],["سریع و خشن ۷","Furious 7",2015],["سریع و خشن ۸","The Fate of the Furious",2017],["سریع و خشن ۹","F9",2021],["سریع و خشن ۱۰","Fast X",2023]]},
+  {id:"jw", fa:"جان ویک", en:"John Wick", genres:["اکشن","هیجانی"], sum:"آدم‌کشی بازنشسته بعد از یک فقدان، دوباره به دنیای مخوف قاتلان برمی‌گردد.",
+   films:[["جان ویک","John Wick",2014],["جان ویک ۲","John Wick: Chapter 2",2017],["جان ویک ۳: پارابلوم","John Wick: Chapter 3 – Parabellum",2019],["جان ویک ۴","John Wick: Chapter 4",2023]]},
+  {id:"hp", fa:"هری پاتر", en:"Harry Potter", genres:["فانتزی","ماجرایی"], sum:"پسری یتیم در مدرسه‌ی جادوگری، با شرور اصلی دنیای جادو روبه‌رو می‌شود.",
+   films:[["هری پاتر و سنگ جادو","Harry Potter and the Philosopher's Stone",2001],["هری پاتر و تالار اسرار","Harry Potter and the Chamber of Secrets",2002],["هری پاتر و زندانی آزکابان","Harry Potter and the Prisoner of Azkaban",2004],["هری پاتر و جام آتش","Harry Potter and the Goblet of Fire",2005],["هری پاتر و محفل ققنوس","Harry Potter and the Order of the Phoenix",2007],["هری پاتر و شاهزاده‌ی دورگه","Harry Potter and the Half-Blood Prince",2009],["هری پاتر و یادگاران مرگ ۱","Harry Potter and the Deathly Hallows – Part 1",2010],["هری پاتر و یادگاران مرگ ۲","Harry Potter and the Deathly Hallows – Part 2",2011]]},
+  {id:"lotr", fa:"ارباب حلقه‌ها", en:"The Lord of the Rings", genres:["فانتزی","ماجرایی"], sum:"سفر گروهی ناهمگون برای نابود کردن حلقه‌ای که همه‌ی سرزمین‌ها را تهدید می‌کند.",
+   films:[["ارباب حلقه‌ها: یاران حلقه","The Fellowship of the Ring",2001],["ارباب حلقه‌ها: دو برج","The Two Towers",2002],["ارباب حلقه‌ها: بازگشت پادشاه","The Return of the King",2003]]},
+  {id:"potc", fa:"دزدان دریایی کارائیب", en:"Pirates of the Caribbean", genres:["ماجرایی","فانتزی"], sum:"ماجراهای کاپیتان جک اسپارو؛ نفرین، نقشه‌ی گنج و دریاهای پرخطر.",
+   films:[["نفرین مروارید سیاه","The Curse of the Black Pearl",2003],["صندوق مرد مرده","Dead Man's Chest",2006],["پایان جهان","At World's End",2007],["در جزر و مدهای ناشناخته","On Stranger Tides",2011],["مردگان قصه نمی‌گویند","Dead Men Tell No Tales",2017]]},
+  {id:"mi", fa:"ماموریت غیرممکن", en:"Mission: Impossible", genres:["اکشن","جاسوسی"], sum:"ایتن هانت و تیمش در ماموریت‌هایی که شکست در آن‌ها معنایی ندارد.",
+   films:[["ماموریت غیرممکن","Mission: Impossible",1996],["ماموریت غیرممکن ۲","Mission: Impossible 2",2000],["ماموریت غیرممکن ۳","Mission: Impossible III",2006],["پروتکل شبح","Ghost Protocol",2011],["ملت سرکش","Rogue Nation",2015],["فال‌اوت","Fallout",2018],["حسابرسی مرگبار: بخش اول","Dead Reckoning Part One",2023]]},
+  {id:"tdk", fa:"سه‌گانه‌ی شوالیه‌ی تاریکی", en:"The Dark Knight Trilogy", genres:["اکشن","جنایی"], sum:"بتمن و مبارزه‌اش با جنایت و آشوب در شهر گاتهام.",
+   films:[["بتمن آغاز می‌کند","Batman Begins",2005],["شوالیه‌ی تاریکی","The Dark Knight",2008],["شوالیه‌ی تاریکی برمی‌خیزد","The Dark Knight Rises",2012]]}
+];
+const SERIES = [
+  ["بریکینگ بد","Breaking Bad",2008,["جنایی","درام"],"معلم شیمی بیماری که برای تأمین آینده‌ی خانواده‌اش وارد دنیای مواد مخدر می‌شود.",tv(5,62,"۲۰۰۸ تا ۲۰۱۳")],
+  ["بتر کال ساول","Better Call Saul",2015,["جنایی","درام"],"ماجرای وکیلی که کم‌کم به سمت تاریکی می‌رود؛ پیش‌درآمد بریکینگ بد.",tv(6,63,"۲۰۱۵ تا ۲۰۲۲")],
+  ["چرنوبیل","Chernobyl",2019,["درام","تاریخی"],"بازسازی فاجعه‌ی هسته‌ای ۱۹۸۶ و تلاش آدم‌هایی که با دروغ و بحران جنگیدند.",tv(1,5,"۲۰۱۹")],
+  ["بازی تاج‌وتخت","Game of Thrones",2011,["فانتزی","اکشن"],"خاندان‌های قدرتمند برای تصاحب تخت آهنین به جان هم می‌افتند.",tv(8,73,"۲۰۱۱ تا ۲۰۱۹")],
+  ["تاریک","Dark",2017,["علمی‌تخیلی","هیجانی"],"ناپدید شدن چند کودک در شهری کوچک، زنجیره‌ای از سفرهای زمانی را باز می‌کند.",tv(3,26,"۲۰۱۷ تا ۲۰۲۰")],
+  ["شرلوک","Sherlock",2010,["جنایی","معمایی"],"کارآگاه مشهور لندن در روزگار امروز، با دکتر واتسون پرونده‌ها را حل می‌کند.",tv(4,13,"۲۰۱۰ تا ۲۰۱۷")],
+  ["پیکی بلایندرز","Peaky Blinders",2013,["جنایی","تاریخی"],"باند خانوادگی شلبی‌ها در بیرمنگام بعد از جنگ جهانی اول بالا می‌آید.",tv(6,36,"۲۰۱۳ تا ۲۰۲۲")],
+  ["سرقت پول","Money Heist",2017,["جنایی","هیجانی"],"گروهی با ماسک دالی، بزرگ‌ترین سرقت تاریخ اسپانیا را نقشه می‌کشند.",tv(5,41,"۲۰۱۷ تا ۲۰۲۱")],
+  ["بازی مرکب","Squid Game",2021,["درام","هیجانی"],"آدم‌های بدهکار در یک مسابقه‌ی مرگبار بازی‌های کودکانه برای جایزه‌ی بزرگ می‌جنگند.",tv(3,22,"۲۰۲۱ تا ۲۰۲۵")],
+  ["دوستان","Friends",1994,["کمدی","عاشقانه"],"شش دوست در نیویورک، با کافه‌ی همیشگی و زندگی‌هایی که به هم گره خورده.",tv(10,236,"۱۹۹۴ تا ۲۰۰۴")]
+];
+const ANIME = [
+  ["وان‌پیس","One Piece",1999,["ماجرایی","کمدی"],"ملوانی با بدن لاستیکی دنبال گنج افسانه‌ای و عنوان پادشاه دزدان دریایی می‌گردد.",tv("ادامه دارد","بیش از ۱۱۰۰","از ۱۹۹۹"),mv([["وان‌پیس: استامپید",2019],["وان‌پیس فیلم: ردِ",2022],["وان‌پیس فیلم: گُلد",2016],["وان‌پیس فیلم: زد",2012],["وان‌پیس فیلم: استرانگ ورلد",2009]],"۱۵ فیلم؛ چند مورد شاخص")],
+  ["ناروتو","Naruto",2002,["اکشن","ماجرایی"],"نوجوانی تنها که رویای رسیدن به مقام بزرگ‌ترین نینجای دهکده را دارد.",tv("دو سریال جدا: ناروتو و ناروتو شیپودن","۲۲۰ + ۵۰۰","۲۰۰۲ تا ۲۰۱۷"),mv([["جاده‌ی نینجا",2012],["آخرین: ناروتو فیلم",2014],["بوروتو: ناروتو فیلم",2015],["زندان خونین",2011]],"۱۱ فیلم؛ چند مورد شاخص")],
+  ["حمله به تایتان","Attack on Titan",2013,["اکشن","تاریک"],"بشر پشت دیوارهایی عظیم از غول‌ها پنهان شده، تا روزی که دیوار می‌شکند.",tv(4,87,"۲۰۱۳ تا ۲۰۲۳"),mv([["کمان و تیر قرمز (خلاصه‌ی فصل اول)",2014],["بال‌های آزادی (خلاصه‌ی فصل اول)",2015]],"۲ فیلم خلاصه")],
+  ["شیطان‌کش","Demon Slayer",2019,["اکشن","فانتزی"],"پسری برای نجات خواهرِ دیو شده‌اش، شمشیرزن می‌شود.",tv(4,56,"از ۲۰۱۹"),mv([["قطار بی‌پایان",2020],["قلعه‌ی بی‌نهایت",2025]])],
+  ["کیمیاگر تمام‌فلزی: برادری","Fullmetal Alchemist: Brotherhood",2009,["ماجرایی","فانتزی"],"دو برادر کیمیاگر برای بازگرداندن آنچه از دست داده‌اند، سنگ جادو را جست‌وجو می‌کنند.",tv(1,64,"۲۰۰۹ تا ۲۰۱۰"),mv([["ستاره‌ی مقدس میلوس",2011]])],
+  ["کابوی بیباپ","Cowboy Bebop",1998,["علمی‌تخیلی","اکشن"],"شکارچیان جایزه در فضا، با گذشته‌هایی که رهایشان نمی‌کند.",tv(1,26,"۱۹۹۸ تا ۱۹۹۹"),mv([["در بهشت را بکوب",2001]])],
+  ["شهر ارواح","Spirited Away",2001,["فانتزی","ماجرایی"],"دختری ده‌ساله در دنیای ارواح گیر می‌افتد و باید والدینش را نجات دهد.",null,mv([["شهر ارواح",2001]])],
+  ["نام تو","Your Name",2016,["عاشقانه","فانتزی"],"دو نوجوان ناشناس در خواب جای هم را عوض می‌کنند و رازی بزرگ آشکار می‌شود.",null,mv([["نام تو",2016]])]
+];
+const MATURE = [
+  ["برسرک","Berserk (1997)",1997,["تاریک","فانتزی"],"شمشیرزنی تنها در دنیایی بی‌رحم و پر از هیولا، با دوستی‌ای که به خیانت می‌رسد.",tv(1,25,"۱۹۹۷ تا ۱۹۹۸"),mv([["عصر طلایی ۱: تخم‌مرغ پادشاه",2012],["عصر طلایی ۲: نبرد دولدری",2012],["عصر طلایی ۳: ظهور",2013]],"۳ فیلم")],
+  ["دفترچه مرگ","Death Note",2006,["معمایی","تاریک"],"دانش‌آموزی دفتری پیدا می‌کند که هر اسمی در آن نوشته شود، صاحبش می‌میرد.",tv(1,37,"۲۰۰۶ تا ۲۰۰۷"),null],
+  ["هلسینگ اولتیمیت","Hellsing Ultimate",2006,["اکشن","وحشت"],"سازمانی مخفی با یک خون‌آشام قدرتمند، در برابر هیولاها از انگلستان محافظت می‌کند.",tv(1,10,"۲۰۰۶ تا ۲۰۱۲"),null],
+  ["دویلمن کرایبیبی","Devilman Crybaby",2018,["تاریک","وحشت"],"نوجوانی که با شیطان یکی می‌شود تا در برابر هجوم دیوها بایستد.",tv(1,10,"۲۰۱۸"),null],
+  ["الفن لید","Elfen Lied",2004,["تاریک","درام"],"موجودی با قدرت‌های مرگبار از آزمایشگاهی فرار می‌کند و با آدم‌هایی روبه‌رو می‌شود که به او پناه می‌دهند.",tv(1,13,"۲۰۰۴"),null],
+  ["توکیو غول","Tokyo Ghoul",2014,["اکشن","تاریک"],"دانشجویی بعد از یک حادثه نیمه‌غول می‌شود و بین دو دنیا گیر می‌افتد.",tv(4,48,"۲۰۱۴ تا ۲۰۱۸"),null],
+  ["مرد اره‌برقی","Chainsaw Man",2022,["اکشن","وحشت"],"جوانی بدهکار با شیطانی اره‌ای قرارداد می‌بندد و شکارچی شیاطین می‌شود.",tv(1,12,"۲۰۲۲"),mv([["فصل رزه",2025]])]
+];
+const ANIMATION = [
+  ["آواتار: آخرین مهارکننده‌ی هوا","Avatar: The Last Airbender",2005,["ماجرایی","فانتزی"],"پسری که آخرین مهارکننده‌ی هواست باید چهار عنصر را یاد بگیرد و جهان را از جنگ نجات دهد.",tv(3,61,"۲۰۰۵ تا ۲۰۰۸"),null],
+  ["پاندای کونگ‌فوکار","Kung Fu Panda",2008,["کمدی","ماجرایی"],"پانداپرخوری که رویای کونگ‌فوکار شدن دارد، ناگهان «جنگجوی اژدها» می‌شود.",tv(3,80,"سریال «افسانه‌ی شگفت‌انگیز»؛ ۲۰۱۱ تا ۲۰۱۶"),mv([["پاندای کونگ‌فوکار ۱",2008],["پاندای کونگ‌فوکار ۲",2011],["پاندای کونگ‌فوکار ۳",2016],["پاندای کونگ‌فوکار ۴",2024]])],
+  ["آرکین","Arcane",2021,["اکشن","علمی‌تخیلی"],"دو خواهر در دو شهر متضاد، وسط جنگی بین فناوری و فقر.",tv(2,18,"۲۰۲۱ تا ۲۰۲۴"),null],
+  ["آبشار جاذبه","Gravity Falls",2012,["کمدی","معمایی"],"دو خواهر و برادر در شهری عجیب، دنبال رازهای پنهانش می‌گردند.",tv(2,40,"۲۰۱۲ تا ۲۰۱۶"),null],
+  ["شرک","Shrek",2001,["کمدی","فانتزی"],"غولی تنها که فقط مرداب خودش را می‌خواهد، ناخواسته وارد ماجرای یک شاهزاده می‌شود.",null,mv([["شرک",2001],["شرک ۲",2004],["شرک سوم",2007],["شرک برای همیشه",2010]])],
+  ["داستان اسباب‌بازی","Toy Story",1995,["کمدی","ماجرایی"],"اسباب‌بازی‌هایی که وقتی کسی نیست، زنده‌اند و برای هم‌دیگر ماجرا می‌سازند.",null,mv([["داستان اسباب‌بازی ۱",1995],["داستان اسباب‌بازی ۲",1999],["داستان اسباب‌بازی ۳",2010],["داستان اسباب‌بازی ۴",2019]])],
+  ["اسپایدرمن: به درون دنیای عنکبوتی","Spider-Man: Into the Spider-Verse",2018,["اکشن","ماجرایی"],"نوجوانی به نام مایلز موراِلس با چند اسپایدرمن از دنیاهای دیگر روبه‌رو می‌شود.",null,mv([["به درون دنیای عنکبوتی",2018],["ورای دنیای عنکبوتی",2023]])]
+];
+
+/* ---------- ساخت آیتم‌ها ---------- */
+const DATA = {movies:[], series:[], anime:[], mature:[], animation:[]};
+function build(sec, rows){
+  rows.forEach((r,i)=>{
+    const it = {key:`${sec}-${i}`, sec, fa:r[0], en:r[1], year:r[2], genres:r[3], sum:r[4], tv:r[5]||null, mv:r[6]||null, hue:SECTIONS[sec].hues[i%5]};
+    REG[it.key]=it; DATA[sec].push(it);
+  });
+}
+SINGLE_MOVIES.forEach((r,i)=>{
+  const it={key:`movies-s${i}`,sec:"movies",fa:r[0],en:r[1],year:r[2],genres:r[3],sum:r[4],hue:SECTIONS.movies.hues[i%5]};
+  REG[it.key]=it; DATA.movies.push(it);
+});
+COLLECTIONS.forEach((c,ci)=>{
+  c.key=`col-${c.id}`; c.isCol=true; c.sec="movies"; c.hue=SECTIONS.movies.hues[ci%5]; REG[c.key]=c;
+  c.films.forEach((f,i)=>{
+    const it={key:`cf-${c.id}-${i}`,sec:"movies",fa:f[0],en:f[1],year:f[2],genres:c.genres,col:c,sum:`فیلم ${fa(i+1)} از کالکشن «${c.fa}».`,hue:SECTIONS.movies.hues[(ci+i)%5]};
+    REG[it.key]=it; DATA.movies.push(it);
+  });
+});
+build("series",SERIES); build("anime",ANIME); build("mature",MATURE); build("animation",ANIMATION);
+
+/* ---------- ذخیره‌سازی (روی دستگاه خود کاربر) ---------- */
+const mem = {};
+const store = {
+  get(k,d){ try{ const v=localStorage.getItem(k); if(v!==null) return JSON.parse(v); }catch(e){} return k in mem ? mem[k] : d; },
+  set(k,v){ mem[k]=v; try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+};
+const LISTS = {watched:"تماشا شده‌ها", library:"کتابخانه", watchlist:"لیست تماشا"};
+const state = {sec:"home", q:"", genre:null, pv:null, ageOk:false,
+  user: store.get("pardeh_user",{name:"",email:""}),
+  lists: {}};
+Object.keys(LISTS).forEach(l => state.lists[l] = new Set(store.get("pardeh_"+l,[])));
+const saveList = l => store.set("pardeh_"+l,[...state.lists[l]]);
+
+/* ---------- قطعه‌های رابط ---------- */
+function poster(it, kind){
+  const img = IMAGES[it.en];
+  const st = `--h:${it.hue}` + (img ? `;background-image:url('${img}');background-size:cover;background-position:center` : "");
+  return `<div class="poster${img?" has-img":""}" style="${st}"><span class="kind">${kind}</span><span class="big">${it.fa}</span><span class="yr">${it.isCol ? fa(it.films.length)+" فیلم" : fa(it.year)}</span></div>`;
+}
+function sub(it){
+  if(it.isCol) return `${fa(it.films.length)} فیلم`;
+  if(it.col) return it.col.fa;
+  if(it.sec==="series" && it.tv) return `${fa(it.tv.seasons)} فصل`;
+  if(it.tv && it.mv) return "سریال و سینمایی";
+  if(it.tv) return "سریال";
+  if(it.mv) return "سینمایی";
+  return it.genres[0];
+}
+function card(it){
+  const kind = it.isCol ? "کالکشن" : SECTIONS[it.sec].kind;
+  return `<div class="cell"><button class="card" data-open="${it.key}" aria-label="جزئیات ${it.fa}">
+    ${poster(it, kind)}<div class="t">${it.fa}</div><div class="s">${sub(it)}</div></button></div>`;
+}
+function links(it){
+  const q = encodeURIComponent(it.en);
+  return `<div class="acts">
+    <a class="btn primary" target="_blank" rel="noopener" href="https://www.justwatch.com/search?q=${q}">کجا ببینم؟</a>
+    <a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${q}+trailer">تریلر</a></div>`;
+}
+const decoCount = {movies:3,series:4,anime:3,mature:3,animation:4,panel:5};
+
+/* ---------- صفحه‌ی اصلی: ردیف‌های افقی ---------- */
+function renderHome(){
+  const rows = [
+    ["movies","فیلم‌های سینمایی",[...DATA.movies.filter(i=>!i.col), ...COLLECTIONS]],
+    ["series","سریال‌ها",DATA.series],
+    ["anime","انیمه‌ها",DATA.anime],
+    ["animation","انیمیشن‌ها",DATA.animation]
+  ];
+  const html = rows.map(([k,title,items])=>`
+    <section class="rowwrap">
+      <div class="row-head" style="--c:${SECTIONS[k].c}">
+        <div class="rh-l"><span class="mini">${emblem(k)}</span><h2>${title}</h2></div>
+        <button class="btn" data-go="${k}">مشاهده همه</button>
+      </div>
+      <div class="rail">${items.map(card).join("")}</div>
+    </section>`).join("");
+  $("view").innerHTML = `
+    <section class="hero home-hero"><div class="hero-kanji">闇</div><h1><span class="brand-glow">Dark anime</span></h1><p>دنیای انیمه، آثار تاریک، فیلم و سریال؛ پیدا کن، ذخیره کن و دنیای مورد علاقه‌ات را بساز.</p><div class="hero-tags"><span>ANIME</span><span>DARK</span><span>OTAKU</span></div></section>
+    ${html}
+    <section class="rowwrap"><div class="row-head" style="--c:${SECTIONS.mature.c}"><div class="rh-l"><span class="mini">${emblem("mature")}</span><h2>خاک‌برسری‌ها (۱۸+)</h2></div><button class="btn" data-go="mature">ورود</button></div></section>`;
+}
+
+/* ---------- صفحه‌ی هر بخش ---------- */
+function renderSection(){
+  const sec = state.sec, items = DATA[sec];
+  const genres = [...new Set(items.flatMap(i=>i.genres))];
+  if(state.genre && !genres.includes(state.genre)) state.genre=null;
+  const deco = "<i></i>".repeat(decoCount[sec]);
+  const extra = sec==="movies" ? `<a class="btn primary" href="#collections" id="toCol">کالکشن‌ها</a>` : "";
+  $("view").innerHTML = `
+    <section class="hero has-emb"><div class="deco">${deco}</div><div class="emblem">${emblem(sec)}</div><h1>${HERO[sec][0]}</h1><p>${HERO[sec][1]}</p>${extra}</section>
+    <section class="toolbar">
+      <input class="search" id="q" type="search" placeholder="جستجو در این بخش" aria-label="جستجو" value="${esc(state.q)}">
+      <div class="chips" id="chips">${genres.map(g=>`<button data-genre="${g}" aria-pressed="${state.genre===g}">${g}</button>`).join("")}</div>
+      <div class="count" id="count"></div>
+    </section>
+    <section class="grid" id="grid"></section>
+    ${sec==="movies" ? `<h2 class="sec" id="collections">کالکشن‌ها</h2><p class="count">مجموعه‌هایی که چند فیلم دارند. روی هرکدام بزنید تا ترتیب فیلم‌ها را ببینید.</p><section class="grid" id="colGrid"></section>` : ""}`;
+  fillGrid();
+}
+function fillGrid(){
+  const sec = state.sec, q = state.q.toLowerCase();
+  const list = DATA[sec].filter(i => (!state.genre || i.genres.includes(state.genre)) &&
+    (!q || (i.fa+" "+i.en+" "+(i.col?i.col.fa:"")).toLowerCase().includes(q)));
+  $("count").textContent = fa(list.length)+" اثر";
+  $("grid").innerHTML = list.length ? list.map(card).join("") : `<div class="empty">اثری پیدا نشد. جستجو یا ژانر را عوض کنید.</div>`;
+  if(sec==="movies"){
+    const cols = COLLECTIONS.filter(c => (!state.genre || c.genres.includes(state.genre)) && (!q || (c.fa+" "+c.en).toLowerCase().includes(q)));
+    $("colGrid").innerHTML = cols.length ? cols.map(card).join("") : `<div class="empty">کالکشنی با این فیلتر نیست.</div>`;
+  }
+  document.querySelectorAll("#chips button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.genre===state.genre));
+}
+
+/* ---------- جستجوی ساده ---------- */
+function renderSearch(){
+  $("view").innerHTML = `
+    <section class="hero" style="padding-bottom:10px"><h1>جستجو</h1></section>
+    <input class="search" id="sq" type="search" placeholder="نام فیلم، سریال، انیمه یا انیمیشن" aria-label="جستجو" value="${esc(state.q)}">
+    <div class="count" id="sc" style="padding:8px 0"></div>
+    <section class="grid" id="sres"></section>`;
+  fillSearch();
+}
+function fillSearch(){
+  const q = state.q.toLowerCase();
+  if(!q){ $("sc").textContent=""; $("sres").innerHTML = `<div class="empty">چیزی بنویسید تا نتیجه‌ها اینجا بیاید.</div>`; return; }
+  const all = [...DATA.movies.filter(i=>!i.col), ...COLLECTIONS, ...DATA.series, ...DATA.anime, ...(state.ageOk?DATA.mature:[]), ...DATA.animation];
+  const res = all.filter(i => (i.fa+" "+i.en).toLowerCase().includes(q));
+  $("sc").textContent = fa(res.length)+" نتیجه";
+  $("sres").innerHTML = res.length ? res.map(card).join("") : `<div class="empty">چیزی پیدا نشد. اسم را کوتاه‌تر یا انگلیسی امتحان کنید.</div>`;
+}
+
+/* ---------- پنل کاربری (تم نامی) ---------- */
+function listGrid(l){
+  const items = [...state.lists[l]].map(k=>REG[k]).filter(Boolean);
+  return items.length ? `<section class="grid">${items.map(card).join("")}</section>`
+    : `<div class="empty" style="padding:24px 0">هنوز چیزی اینجا نیست. از صفحه‌ی جزئیات هر اثر می‌توانید اضافه‌اش کنید.<br><br><button class="btn primary" data-go="search">رفتن به جستجو</button></div>`;
+}
+function renderPanel(){
+  const u = state.user, pv = state.pv;
+  let inner = "";
+  if(!pv){
+    const n = l => fa(state.lists[l].size);
+    inner = `
+      <div class="stats">
+        <button class="stat" data-pv="watched" style="font:inherit;color:inherit"><b>${n("watched")}</b>تماشا شده</button>
+        <button class="stat" data-pv="library" style="font:inherit;color:inherit"><b>${n("library")}</b>کتابخانه</button>
+        <button class="stat" data-pv="watchlist" style="font:inherit;color:inherit"><b>${n("watchlist")}</b>لیست تماشا</button>
+      </div>
+      <div class="menu">
+        <button data-pv="account"><span>اکانت من<small>نام و ایمیل</small></span><span>‹</span></button>
+        <button data-pv="watched"><span>انیمه و فیلم‌های تماشا شده</span><span class="cnt">${n("watched")}</span></button>
+        <button data-pv="library"><span>کتابخانه<small>اثرهای مورد علاقه</small></span><span class="cnt">${n("library")}</span></button>
+        <button data-pv="watchlist"><span>لیست تماشا<small>چیزهایی که می‌خواهم ببینم</small></span><span class="cnt">${n("watchlist")}</span></button>
+        <button data-pv="contact"><span>مخاطب<small>ارتباط با ما</small></span><span>‹</span></button>
+      </div>`;
+  } else if(pv==="account"){
+    inner = `<button class="back" data-pv="">‹ بازگشت</button><h2 class="sub-title">اکانت من</h2>
+      <div class="form">
+        <label for="accName">نام</label><input id="accName" value="${esc(u.name)}" placeholder="نام شما">
+        <label for="accEmail">ایمیل</label><input id="accEmail" type="email" value="${esc(u.email)}" placeholder="you@example.com" style="direction:ltr;text-align:right">
+        <div class="acts"><button class="btn primary" id="saveAcc">ذخیره</button><button class="btn" id="clearAll">پاک کردن همه‌ی داده‌ها</button></div>
+        <p class="note ok" id="accMsg"></p>
+        <p class="note">اطلاعات فقط روی همین دستگاه ذخیره می‌شود. ورود و ثبت‌نام واقعی نیاز به سرور دارد که بعداً می‌توانیم اضافه کنیم.</p>
+      </div>`;
+  } else if(pv==="contact"){
+    inner = `<button class="back" data-pv="">‹ بازگشت</button><h2 class="sub-title">مخاطب</h2>
+      <div class="links">
+        <a href="mailto:${esc(CONTACT.email)}">ایمیل<span>${esc(CONTACT.email)}</span></a>
+        <a href="https://t.me/${esc(CONTACT.telegram)}" target="_blank" rel="noopener">تلگرام<span>@${esc(CONTACT.telegram)}</span></a>
+        <a href="https://instagram.com/${esc(CONTACT.instagram)}" target="_blank" rel="noopener">اینستاگرام<span>@${esc(CONTACT.instagram)}</span></a>
+      </div>
+      <div class="form"><label for="msg">پیام</label><textarea id="msg" placeholder="پیشنهاد یا درخواست خود را بنویسید"></textarea>
+        <div class="acts"><button class="btn primary" id="sendMsg">ارسال با ایمیل</button></div></div>`;
+  } else {
+    inner = `<button class="back" data-pv="">‹ بازگشت</button><h2 class="sub-title">${LISTS[pv]}</h2>${listGrid(pv)}`;
+  }
+  $("view").innerHTML = `
+    <section class="hero has-emb"><div class="deco">${"<i></i>".repeat(decoCount.panel)}</div><div class="emblem">${emblem("panel")}</div>
+      <h1>پنل کاربری</h1><p>سلام ${esc(u.name || "مهمان")}</p></section>${inner}`;
+}
+
+/* ---------- جزئیات ---------- */
+function openDetail(key){
+  const it = REG[key];
+  const kind = it.isCol ? "کالکشن" : SECTIONS[it.sec].kind;
+  let body = "";
+  if(it.isCol){
+    body = `<div class="boxes"><div class="box"><h3>فیلم‌ها به ترتیب انتشار</h3><ul>${it.films.map(f=>`<li>${f[0]} (${fa(f[2])})</li>`).join("")}</ul></div></div>`;
+  } else if(it.sec==="series"){
+    body = `<div class="boxes"><div class="box"><h3>فصل و قسمت</h3><p>تعداد فصل: ${fa(it.tv.seasons)}</p><p>تعداد قسمت: ${fa(it.tv.episodes)}</p><p>سال پخش: ${it.tv.years}</p></div></div>`;
+  } else if(it.sec!=="movies"){
+    const t = it.tv ? `<div class="box"><h3>سریال</h3><p>فصل: ${fa(it.tv.seasons)}</p><p>قسمت: ${fa(it.tv.episodes)}</p><p>پخش: ${it.tv.years}</p></div>` : `<div class="box none"><h3>سریال</h3><p>این اثر سریال ندارد.</p></div>`;
+    const m = it.mv ? `<div class="box"><h3>سینمایی‌ها${it.mv.n?` (${it.mv.n})`:""}</h3><ul>${it.mv.list.map(f=>`<li>${f[0]} (${fa(f[1])})</li>`).join("")}</ul></div>` : `<div class="box none"><h3>سینمایی</h3><p>این اثر فیلم سینمایی ندارد.</p></div>`;
+    body = `<div class="boxes two">${t}${m}</div>`;
+  }
+  const colBtn = it.col ? `<button class="btn" style="margin-top:12px" data-open="${it.col.key}">دیدن همه‌ی فیلم‌های «${it.col.fa}»</button>` : "";
+  const has = l => state.lists[l].has(key);
+  const acts = `<div class="acts">
+    <button class="btn${has("watched")?" primary":""}" data-act="watched" data-k="${key}">${has("watched")?"✓ تماشا شده":"تماشا کردم"}</button>
+    <button class="btn${has("library")?" primary":""}" data-act="library" data-k="${key}">${has("library")?"✓ در کتابخانه":"کتابخانه"}</button>
+    <button class="btn${has("watchlist")?" primary":""}" data-act="watchlist" data-k="${key}">${has("watchlist")?"✓ در لیست تماشا":"لیست تماشا"}</button></div>`;
+  $("dBody").innerHTML = `<div class="d-body has-poster">${poster(it,kind)}<div>
+    <h2>${it.fa}</h2><div class="en">${it.en}</div>
+    <div class="facts">${it.isCol?"":`<span>${fa(it.year)}</span>`}${it.genres.map(g=>`<span>${g}</span>`).join("")}${it.sec==="mature"?"<span>۱۸+</span>":""}</div>
+    <p>${it.sum}</p>${body}${colBtn}${acts}${links(it)}</div></div>`;
+  if(!$("dlg").open) $("dlg").showModal();
+  $("dlg").scrollTop = 0;
+}
+
+/* ---------- افکت ورود ---------- */
+function playFx(sec){
+  const cls = {movies:"haki",series:"flame",anime:"sun",mature:"slash",animation:"heart",panel:"thunder"}[sec];
+  if(!cls) return;
+  const el = document.createElement("div");
+  el.className = "fx fx-"+cls;
+  if(cls==="haki") el.innerHTML="<b></b><b></b>";
+  else if(cls==="heart") el.innerHTML = Array.from({length:14},(_,i)=>`<i style="left:${5+i*7}%;font-size:${18+(i*7)%22}px;animation-delay:${(i%5)*.08}s"></i>`).join("");
+  else if(cls==="slash") el.innerHTML="<i></i><i></i><i></i>";
+  else el.innerHTML="<i></i>";
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),1400);
+}
+
+/* ---------- ناوبری ---------- */
+const ICONS = {
+  home:`<svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>`,
+  search:`<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>`,
+  panel:`<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg>`
+};
+function buildNav(){
+  $("nav").innerHTML = Object.entries(SECTIONS).map(([k,s])=>
+    `<button data-go="${k}" style="--c:${s.c};--ci:${s.ci}" aria-current="${state.sec===k?"page":"false"}">${s.label}</button>`).join("");
+  const cur = state.sec==="search" ? "search" : state.sec==="panel" ? "panel" : "home";
+  $("tabbar").innerHTML = [["home","خانه"],["search","جستجو"],["panel","پنل کاربری"]].map(([k,l])=>
+    `<button data-go="${k}" aria-current="${cur===k?"page":"false"}">${ICONS[k]}<span>${l}</span></button>`).join("");
+}
+function render(){ ({home:renderHome, search:renderSearch, panel:renderPanel}[state.sec] || renderSection)(); }
+function go(sec){
+  if(sec==="mature" && !state.ageOk){ $("gate").showModal(); return; }
+  state.sec=sec; state.q=""; state.genre=null; state.pv=null;
+  document.body.dataset.theme = sec==="search" ? "home" : sec;
+  buildNav(); render();
+  window.scrollTo(0,0);
+  playFx(sec);
+}
+
+/* ---------- رویدادها ---------- */
+document.addEventListener("click", e=>{
+  const g = e.target.closest("[data-go]"); if(g){ go(g.dataset.go); return; }
+  const a = e.target.closest("[data-act]");
+  if(a){
+    const S = state.lists[a.dataset.act], k = a.dataset.k;
+    S.has(k) ? S.delete(k) : S.add(k);
+    saveList(a.dataset.act); openDetail(k);
+    if(state.sec==="panel") renderPanel();
+    return;
+  }
+  const o = e.target.closest("[data-open]"); if(o){ openDetail(o.dataset.open); return; }
+  const p = e.target.closest("[data-pv]"); if(p){ state.pv = p.dataset.pv || null; renderPanel(); window.scrollTo(0,0); return; }
+  const c = e.target.closest("#chips button"); if(c){ state.genre = state.genre===c.dataset.genre ? null : c.dataset.genre; fillGrid(); return; }
+  if(e.target.id==="toCol"){ e.preventDefault(); $("collections").scrollIntoView({behavior:"smooth"}); }
+  if(e.target.id==="saveAcc"){
+    state.user = {name:$("accName").value.trim(), email:$("accEmail").value.trim()};
+    store.set("pardeh_user", state.user); renderPanel();
+    $("accMsg").textContent = "ذخیره شد."; return;
+  }
+  if(e.target.id==="clearAll"){
+    if(confirm("همه‌ی داده‌ها (نام، تماشا شده‌ها، کتابخانه و لیست تماشا) پاک شود؟")){
+      state.user={name:"",email:""}; store.set("pardeh_user",state.user);
+      Object.keys(LISTS).forEach(l=>{state.lists[l].clear(); saveList(l);});
+      renderPanel();
+    }
+    return;
+  }
+  if(e.target.id==="sendMsg"){
+    const body = encodeURIComponent($("msg").value);
+    location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent("پیام از سایت پرده")}&body=${body}`;
+  }
+});
+document.addEventListener("input", e=>{
+  if(e.target.id==="q"){ state.q=e.target.value.trim(); fillGrid(); }
+  if(e.target.id==="sq"){ state.q=e.target.value.trim(); fillSearch(); }
+});
+$("dClose").addEventListener("click",()=>$("dlg").close());
+$("dlg").addEventListener("click",e=>{ if(e.target===$("dlg")) $("dlg").close(); });
+$("gYes").addEventListener("click",()=>{ state.ageOk=true; $("gate").close(); go("mature"); });
+$("gNo").addEventListener("click",()=>{ $("gate").close(); });
+
+buildNav(); renderHome();
+</script>
+</body>
+</html>
