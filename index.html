@@ -854,3 +854,80 @@ buildNav(); renderHome();
 </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>تماشای آنلاین | Darkanime</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #09090d;
+      color: #f5f5f5;
+      font-family: sans-serif;
+    }
+    main { max-width: 900px; margin: auto; }
+    video {
+      width: 100%;
+      max-height: 75vh;
+      background: #000;
+      border-radius: 12px;
+    }
+    a, .back {
+      display: inline-block;
+      padding: 12px 18px;
+      margin: 12px 8px 0 0;
+      border-radius: 8px;
+      background: #a20f35;
+      color: white;
+      text-decoration: none;
+      border: 0;
+      font-size: 15px;
+    }
+    p { color: #bbb; line-height: 1.8; }
+  </style>
+</head>
+<body>
+<main>
+  <h1 id="title">تماشای آنلاین</h1>
+  <video id="player" controls playsinline preload="metadata"></video>
+  <p id="message">برای پخش، باید لینک مستقیم و مجاز ویدئو ثبت شده باشد.</p>
+  <a id="download" href="#" download>دانلود قسمت</a>
+  <a href="./index.html">بازگشت به Darkanime</a>
+</main>
+<script>
+  const params = new URLSearchParams(location.search);
+  const videoUrl = params.get("video");
+  const title = params.get("title") || "تماشای آنلاین";
+  const player = document.getElementById("player");
+  const download = document.getElementById("download");
+
+  document.getElementById("title").textContent = title;
+
+  if (videoUrl) {
+    try {
+      const url = new URL(videoUrl);
+      if (url.protocol === "https:") {
+        player.src = url.href;
+        download.href = url.href;
+        document.getElementById("message").textContent =
+          "اگر ویدئو پخش نشد، فرمت یا دسترسی سرور ویدئو را بررسی کنید.";
+      } else {
+        download.hidden = true;
+        document.getElementById("message").textContent =
+          "فقط لینک HTTPS پذیرفته می‌شود.";
+      }
+    } catch {
+      download.hidden = true;
+      document.getElementById("message").textContent =
+        "لینک ویدئو معتبر نیست.";
+    }
+  } else {
+    download.hidden = true;
+  }
+</script>
+</body>
+</html>
+
